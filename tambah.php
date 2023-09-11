@@ -1,7 +1,6 @@
 <?php
 require "koneksi.php";
-
-require "koneksi.php";
+require "function.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nama = $_POST["nama"];
@@ -13,13 +12,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query = "INSERT INTO tb_data_makanan (nama, harga, foto, deskripsi, kategori) 
                      VALUES ('$nama', $harga, '$foto', '$deskripsi', '$kategori')";
 
-    if (mysqli_query($koneksi, $query)) {
-       
-        header("Location: index.php?nama=$nama&harga=$harga&foto=$foto&deskripsi=$deskripsi&kategori=$kategori");
-        exit;
-    } else {
-        echo "Error: " . mysqli_error($koneksi);
-    }
+if (mysqli_query($koneksi, $query)) {
+    echo '<script>';
+    echo 'alert("Data ' . $nama . ' telah berhasil ditambahkan ke dalam tabel.");';
+    echo 'window.location.href = "index.php";';
+    echo '</script>';
+} else {
+    echo '<script>';
+    echo 'alert("Data ' . $nama . ' gagal ditambahkan ke dalam tabel.");';
+    echo '</script>';
+    echo "Error: " . mysqli_error($koneksi);
+}
+
 }
 ?>
 
@@ -109,5 +113,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <button type="submit">Tambah</button>
     </form>
+    <script>
+    function showSuccessAlert(namaMakanan) {
+        alert("Data "+ namaMakanan + " telah berhasil ditambahkan ke dalam tabel.");
+    }
+
+    function showErrorAlert(namaMakanan) {
+        alert("Data "+ namaMakanan + " gagal ditambahkan ke dalam tabel.");
+    }
+    </script>
+
 </body>
 </html>

@@ -72,7 +72,8 @@
         <th>Kategori</th> 
         <th>Harga</th>
         <th>Gambar</th>
-        <th>Deskripsi</th>  
+        <th>Deskripsi</th> 
+        <th>Aksi</th> 
     </tr>
     <?php if (isset($_GET['nama']) && isset($_GET['harga']) && isset($_GET['gambar']) && isset($_GET['deskripsi']) && isset($_GET['kategori'])): ?>
         <tr>
@@ -91,10 +92,14 @@
             <td><span class="price">Rp <?php echo number_format($makanan->harga, 0, ",", "."); ?></span></td>
             <td><img src="<?php echo $makanan->foto; ?>" alt="<?php echo $makanan->nama_makanan; ?>"></td>
             <td><?php echo $makanan->deskripsi; ?></td>
-            
+            <td>
+                <a href="hapus.php?id=<?php echo $makanan->id; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
+            </td>
+
         </tr>
     <?php endforeach; ?>
 </table>
+
 
 </body>
 </html>
