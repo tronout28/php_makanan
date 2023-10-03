@@ -4,26 +4,22 @@ require "function.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nama = $_POST["nama"];
+    $kategori = $_POST["kategori"];
     $harga = $_POST["harga"];
     $foto = $_POST["foto"];
     $deskripsi = $_POST["deskripsi"];
-    $kategori = $_POST["kategori"]; 
 
-    $query = "INSERT INTO tb_data_makanan (nama, harga, foto, deskripsi, kategori) 
-                     VALUES ('$nama', $harga, '$foto', '$deskripsi', '$kategori')";
-
-if (mysqli_query($koneksi, $query)) {
-    echo '<script>';
-    echo 'alert("Data ' . $nama . ' telah berhasil ditambahkan ke dalam tabel.");';
-    echo 'window.location.href = "index.php";';
-    echo '</script>';
-} else {
-    echo '<script>';
-    echo 'alert("Data ' . $nama . ' gagal ditambahkan ke dalam tabel.");';
-    echo '</script>';
-    echo "Error: " . mysqli_error($koneksi);
-}
-
+    if (tambahMakanan($nama, $kategori, $harga, $foto, $deskripsi)) {
+        echo '<script>
+            alert("Data ' . $nama . ' telah berhasil ditambahkan ke dalam tabel.");
+            window.location.href = "index.php";
+        </script>';
+    } else {
+        echo '<script>
+            alert("Data ' . $nama . ' gagal ditambahkan ke dalam tabel.");
+            window.location.href = "tambah.php";
+        </script>';
+    }
 }
 ?>
 
@@ -89,8 +85,11 @@ if (mysqli_query($koneksi, $query)) {
         }
 
         button[type="submit"]:hover {
-            background-color: #45a049;
-        }
+            text-decoration: underline;
+    border-radius: 15px;
+    background: #ffffff;
+    color: rgb(2, 120, 150);
+   }
     </style>
 </head>
 <body>
@@ -113,15 +112,5 @@ if (mysqli_query($koneksi, $query)) {
 
         <button type="submit">Tambah</button>
     </form>
-    <script>
-    function showSuccessAlert(namaMakanan) {
-        alert("Data "+ namaMakanan + " telah berhasil ditambahkan ke dalam tabel.");
-    }
-
-    function showErrorAlert(namaMakanan) {
-        alert("Data "+ namaMakanan + " gagal ditambahkan ke dalam tabel.");
-    }
-    </script>
-
 </body>
 </html>
